@@ -28,8 +28,8 @@
 /* Begin PBXFileReference section */
 		1D452C1D1B14F38A00672838 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D452C211B14F38A00672838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1D452C221B14F38A00672838 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1D452C241B14F38A00672838 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1D452C221B14F38A00672838 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = /Users/flipens/Documents/Udacity/MemeMe/MemeMe/AppDelegate/AppDelegate.swift; sourceTree = "<absolute>"; };
+		1D452C241B14F38A00672838 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = /Users/flipens/Documents/Udacity/MemeMe/MemeMe/Classes/Controllers/ViewController.swift; sourceTree = "<absolute>"; };
 		1D452C271B14F38A00672838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1D452C291B14F38A00672838 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D452C2C1B14F38A00672838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -77,11 +77,9 @@
 		1D452C1F1B14F38A00672838 /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
-				1D452C221B14F38A00672838 /* AppDelegate.swift */,
-				1D452C241B14F38A00672838 /* ViewController.swift */,
-				1D452C261B14F38A00672838 /* Main.storyboard */,
-				1D452C291B14F38A00672838 /* Images.xcassets */,
-				1D452C2B1B14F38A00672838 /* LaunchScreen.xib */,
+				1D452C421B14F3A800672838 /* AppDelegate */,
+				1D452C431B14F3AF00672838 /* Classes */,
+				1D452C461B14F3EB00672838 /* Resources */,
 				1D452C201B14F38A00672838 /* Supporting Files */,
 			);
 			path = MemeMe;
@@ -110,6 +108,48 @@
 				1D452C371B14F38A00672838 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1D452C421B14F3A800672838 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1D452C221B14F38A00672838 /* AppDelegate.swift */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		1D452C431B14F3AF00672838 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1D452C451B14F3BF00672838 /* Model */,
+				1D452C441B14F3B600672838 /* Controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1D452C441B14F3B600672838 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1D452C241B14F38A00672838 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		1D452C451B14F3BF00672838 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1D452C461B14F3EB00672838 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1D452C261B14F38A00672838 /* Main.storyboard */,
+				1D452C291B14F38A00672838 /* Images.xcassets */,
+				1D452C2B1B14F38A00672838 /* LaunchScreen.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
