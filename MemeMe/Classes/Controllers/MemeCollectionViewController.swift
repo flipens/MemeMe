@@ -6,4 +6,8 @@
 //  Copyright (c) 2015 Felipe Lloret. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class MemeCollectionViewController: UIViewController {
+    
+}
