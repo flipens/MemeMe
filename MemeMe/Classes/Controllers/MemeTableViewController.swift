@@ -10,6 +10,8 @@ import UIKit
 
 class MemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var editorButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
      
@@ -41,5 +43,10 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
 //        detailController.villain = self.allVillains[indexPath.row]
         self.navigationController!.pushViewController(detailController, animated: true)
         
+    }
+    
+    @IBAction func gotoMemeEditor(sender: AnyObject) {
+        let memeEditorController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorView") as! MemeEditorViewController
+        self.presentViewController(memeEditorController, animated: true, completion: nil)
     }
 }
