@@ -74,7 +74,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             NSStrokeColorAttributeName: UIColor(red: 0, green: 0, blue: 0, alpha: 1),
             NSForegroundColorAttributeName: UIColor(red: 1, green: 1, blue: 1, alpha: 1),
             NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName : -3
+            NSStrokeWidthAttributeName : -3.0
         ]
         
         self.topTextField.defaultTextAttributes = memeTextAttributes
@@ -122,6 +122,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         activityViewController.completionWithItemsHandler = { (type: String!, completed: Bool, returnedItems: [AnyObject]!, error: NSError!) in
             if completed {
                 self.save()
+            } else {
+                println(error)
             }
             self.dismissViewControllerAnimated(true, completion: nil)
         }

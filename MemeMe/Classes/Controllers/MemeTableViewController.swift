@@ -13,9 +13,6 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var editorButton: UIBarButtonItem!
     @IBOutlet weak var memesTableView: UITableView!
     
-    @IBOutlet weak var memeImage: UIImageView!
-    @IBOutlet weak var memeText: UILabel!
-    
     var memes: [Meme]!
     
     override func viewWillAppear(animated: Bool) {
@@ -25,12 +22,16 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
         
+        // Disable edit button if no memes available
+        
         self.memesTableView.reloadData()
+        
+        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem?.enabled = memes.count > 0
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,18 +44,37 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         let meme = memes[indexPath.row]
         
         // Set the name and image
+        
         cell.textLabel?.text = "\(meme.topString) \(meme.bottomString)"
         cell.imageView?.image = meme.memedImage
         
         return cell
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            self.memes.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        
+        navigationItem.leftBarButtonItem?.enabled = memes.count > 0
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailview") as! MemeDetailViewController
-//        detailController.villain = self.allVillains[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailView") as! MemeDetailViewController
+        detailController.meme = memes[indexPath.row]
         
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.memesTableView.setEditing(editing, animated: animated)
     }
     
     @IBAction func gotoMemeEditor(sender: AnyObject) {
