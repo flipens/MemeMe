@@ -22,7 +22,7 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
         
-        self.memeCollectionView.reloadData()
+        memeCollectionView.reloadData()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -34,7 +34,6 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
         let meme = self.memes[indexPath.row]
         
         // Set the name and image
-        
         let imageView = UIImageView(image: meme.memedImage)
         cell.backgroundView = imageView
         
@@ -44,13 +43,12 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailView") as! MemeDetailViewController
         detailController.meme = memes[indexPath.row]
-        
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        self.memeCollectionView.reloadData()
+        memeCollectionView.reloadData()
     }
     
     @IBAction func gotoMemeEditor(sender: AnyObject) {
