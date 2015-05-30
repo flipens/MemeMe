@@ -18,6 +18,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
+    var oldMemedImage: UIImage!
+    var oldTopText: String!
+    var oldBottomText: String!
+    
     var selectedTextField: UITextField?
     
     override func viewWillAppear(animated: Bool) {
@@ -54,6 +58,23 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         // Disables cameraButton if device doesn't support picking media from camera
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        
+        // Check if editing old Meme
+        if oldMemedImage != nil {
+            self.editOldMeme()
+        }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    func editOldMeme() {
+        shareButton.enabled = true
+        
+        imagePickerView.image = oldMemedImage
+        topTextField.text = oldTopText
+        bottomTextField.text = oldBottomText
     }
     
     // MARK: Text field methods

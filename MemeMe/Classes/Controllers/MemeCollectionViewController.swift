@@ -23,32 +23,57 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
         memes = appDelegate.memes
         
         memeCollectionView.reloadData()
+        
+        // Adds Edit/Done button
+        navigationItem.leftBarButtonItem = editButtonItem()
+
+        // Disable edit button if no memes available
+        navigationItem.leftBarButtonItem?.enabled = memes.count > 0
+        
+        // Show tabBar
+        self.tabBarController?.tabBar.hidden = false
     }
     
+    //MARK: CollectionView Methods
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.memes.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MemeCollectionViewCell
         let meme = self.memes[indexPath.row]
         
-        // Set the name and image
-        let imageView = UIImageView(image: meme.memedImage)
-        cell.backgroundView = imageView
+        // Set the image and delete button
+        cell.memedImageView.image = meme.memedImage
+        cell.deleteButton?.layer.setValue(indexPath.row, forKey: "index")
+        cell.deleteButton?.hidden = !editing
+        cell.deleteButton?.addTarget(self, action: "deleteCell:", forControlEvents: .TouchUpInside)
         
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailView") as! MemeDetailViewController
-        detailController.meme = memes[indexPath.row]
+        detailController.memes = memes
+        detailController.index = indexPath.row        
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         memeCollectionView.reloadData()
+    }
+    
+    func deleteCell(sender: UIButton) {
+        // Remove Meme and update Meme Object
+        let i : Int = (sender.layer.valueForKey("index")) as! Int
+        let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        memes.removeAtIndex(i)
+        applicationDelegate.memes = memes
+        
+        // Disable edit button if no memes available
+        navigationItem.leftBarButtonItem?.enabled = memes.count > 0
+        setEditing(memes.count > 0, animated: true)
     }
     
     @IBAction func gotoMemeEditor(sender: AnyObject) {

@@ -22,12 +22,16 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
         
-        // Disable edit button if no memes available
         memesTableView.reloadData()
         
         // Adds Edit/Done button
         navigationItem.leftBarButtonItem = editButtonItem()
+        
+        // Disable edit button if no memes available
         navigationItem.leftBarButtonItem?.enabled = memes.count > 0
+        
+        // Show tabBar
+        self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidLoad() {
@@ -55,15 +59,21 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
+            // Remove Meme and update Meme Object
+            let applicationDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
             memes.removeAtIndex(indexPath.row)
+            applicationDelegate.memes = memes
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         }
         navigationItem.leftBarButtonItem?.enabled = memes.count > 0
+        setEditing(memes.count > 0, animated: true)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailView") as! MemeDetailViewController
-        detailController.meme = memes[indexPath.row]
+        detailController.memes = memes
+        detailController.index = indexPath.row
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
